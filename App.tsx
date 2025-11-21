@@ -32,6 +32,9 @@ interface User {
   idToken: string;
   localId: string;
   email: string;
+  refreshToken?: string;
+  expiresIn?: string;
+  expirationTime?: number;
 }
 
 interface UserProfile {
@@ -135,6 +138,61 @@ const App: React.FC = () => {
     } catch (error) {
       console.error("Failed to load reader settings", error);
     }
+  }, []);
+
+  // Persistent Login Check
+  useEffect(() => {
+    const restoreUser = async () => {
+        const storedUserStr = localStorage.getItem('eTaleUser');
+        if (!storedUserStr) return;
+        
+        try {
+            const storedUser: User = JSON.parse(storedUserStr);
+            const now = Date.now();
+            
+            if (storedUser.expirationTime && storedUser.expirationTime > now) {
+                // Token is still valid
+                setCurrentUser(storedUser);
+            } else if (storedUser.refreshToken) {
+                // Token expired, try refresh
+                const response = await fetch(`https://securetoken.googleapis.com/v1/token?key=${firebaseConfig.apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        grant_type: 'refresh_token',
+                        refresh_token: storedUser.refreshToken
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const refreshedUser: User = {
+                        ...storedUser,
+                        idToken: data.id_token,
+                        refreshToken: data.refresh_token,
+                        localId: data.user_id,
+                        expiresIn: data.expires_in,
+                        expirationTime: Date.now() + parseInt(data.expires_in, 10) * 1000
+                    };
+                    localStorage.setItem('eTaleUser', JSON.stringify(refreshedUser));
+                    setCurrentUser(refreshedUser);
+                } else {
+                    // Refresh failed
+                    localStorage.removeItem('eTaleUser');
+                    setCurrentUser(null);
+                }
+            } else {
+                // No refresh token and expired
+                localStorage.removeItem('eTaleUser');
+                setCurrentUser(null);
+            }
+        } catch (error) {
+            console.error("Failed to restore user session:", error);
+            localStorage.removeItem('eTaleUser');
+        }
+    };
+    
+    restoreUser();
   }, []);
 
   const handleUpdateReaderSettings = (newSettings: Partial<{theme: Theme, fontSize: FontSize}>) => {
@@ -570,11 +628,21 @@ const App: React.FC = () => {
   const isLoggedIn = !!currentUser;
 
   const handleLogin = (user: User) => {
-    setCurrentUser(user);
+    // Calculate absolute expiration time if not present
+    // expiresIn is usually in seconds as a string
+    let userToSave = { ...user };
+    if (!userToSave.expirationTime && user.expiresIn) {
+        const expiresInSeconds = parseInt(user.expiresIn, 10);
+        userToSave.expirationTime = Date.now() + expiresInSeconds * 1000;
+    }
+    
+    localStorage.setItem('eTaleUser', JSON.stringify(userToSave));
+    setCurrentUser(userToSave);
     handlePageChange('Home');
   };
 
   const handleLogout = () => {
+    localStorage.removeItem('eTaleUser');
     setCurrentUser(null);
     handlePageChange('Home');
   };
