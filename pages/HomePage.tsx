@@ -1,5 +1,4 @@
 
-
 import React, { useState, useMemo } from 'react';
 import NovelList from '../components/NovelList';
 import { Novel } from '../data/novels';
@@ -120,13 +119,13 @@ const HomePage: React.FC<HomePageProps> = ({ novels, onNovelClick, onPageChange 
   
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-8 sm:space-y-12">
         <TopPicksList title="Top Picks for You" recommendations={recommendations} onNovelClick={onNovelClick} />
         <SpotlightList title="Spotlight" novels={spotlightNovels} onNovelClick={onNovelClick} onViewAllClick={() => onPageChange('MoreSpotlights')} />
         <NovelList title="Newly Released Series" novels={newlyReleased} onNovelClick={onNovelClick} onViewAllClick={() => onPageChange('MoreNewlyReleased')} />
         <section>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold text-white">
+          <div className="flex justify-between items-center mb-3 sm:mb-4">
+            <h2 className="text-lg sm:text-xl font-bold text-white">
               Browse by Genre
             </h2>
           </div>

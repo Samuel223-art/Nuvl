@@ -183,7 +183,7 @@ const SearchPage: React.FC<SearchPageProps> = ({ novels, onNovelClick, currentUs
     const SearchChip: React.FC<{text: string}> = ({ text }) => (
         <button
             onClick={() => handleSearch(text)}
-            className="bg-neutral-800 text-neutral-300 px-4 py-2 rounded-full text-sm hover:bg-neutral-700 hover:text-white transition-colors whitespace-nowrap"
+            className="bg-neutral-800 text-neutral-300 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm hover:bg-neutral-700 hover:text-white transition-colors whitespace-nowrap"
         >
             {text}
         </button>
@@ -193,27 +193,27 @@ const SearchPage: React.FC<SearchPageProps> = ({ novels, onNovelClick, currentUs
         <>
             {recentSearches.length > 0 && (
                 <section>
-                    <div className="flex justify-between items-center mb-4">
-                        <h2 className="text-xl font-bold text-white">Recent Searches</h2>
-                        <button onClick={clearRecentSearches} className="text-sm text-neutral-500 hover:text-white">Clear</button>
+                    <div className="flex justify-between items-center mb-3 sm:mb-4">
+                        <h2 className="text-lg sm:text-xl font-bold text-white">Recent Searches</h2>
+                        <button onClick={clearRecentSearches} className="text-xs sm:text-sm text-neutral-500 hover:text-white">Clear</button>
                     </div>
-                    <div className="flex flex-wrap gap-3">
+                    <div className="flex flex-wrap gap-2 sm:gap-3">
                         {recentSearches.map((term, index) => <SearchChip key={index} text={term} />)}
                     </div>
                 </section>
             )}
 
             <section>
-                <h2 className="text-xl font-bold text-white mb-4">Popular Searches</h2>
+                <h2 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">Popular Searches</h2>
                 {isLoadingPopular ? (
                     <div className="flex flex-wrap gap-3">
-                        <SkeletonLine className="h-10 w-24 rounded-full" />
-                        <SkeletonLine className="h-10 w-32 rounded-full" />
-                        <SkeletonLine className="h-10 w-28 rounded-full" />
-                        <SkeletonLine className="h-10 w-20 rounded-full" />
+                        <SkeletonLine className="h-8 sm:h-10 w-24 rounded-full" />
+                        <SkeletonLine className="h-8 sm:h-10 w-32 rounded-full" />
+                        <SkeletonLine className="h-8 sm:h-10 w-28 rounded-full" />
+                        <SkeletonLine className="h-8 sm:h-10 w-20 rounded-full" />
                     </div>
                 ) : popularSearches.length > 0 ? (
-                    <div className="flex flex-wrap gap-3">
+                    <div className="flex flex-wrap gap-2 sm:gap-3">
                         {popularSearches.map((term, index) => <SearchChip key={index} text={term} />)}
                     </div>
                 ) : (
@@ -223,7 +223,7 @@ const SearchPage: React.FC<SearchPageProps> = ({ novels, onNovelClick, currentUs
 
             {recommendations.length > 0 && (
                 <section>
-                    <h2 className="text-xl font-bold text-white mb-4">You Might Like</h2>
+                    <h2 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">You Might Like</h2>
                     <NovelGrid novels={recommendations} onNovelClick={onNovelClick} />
                 </section>
             )}
@@ -234,19 +234,19 @@ const SearchPage: React.FC<SearchPageProps> = ({ novels, onNovelClick, currentUs
         <>
             {searchResults && searchResults.length > 0 ? (
                 <section>
-                    <h2 className="text-xl font-bold text-white mb-4">
+                    <h2 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">
                         Results for "{query}"
                     </h2>
                     <NovelGrid novels={searchResults} onNovelClick={onNovelClick} />
                 </section>
             ) : (
                 <div className="text-center py-20 px-6 bg-neutral-800/50 rounded-lg">
-                    <i className="fas fa-search text-5xl text-neutral-600 mb-6"></i>
-                    <h2 className="text-2xl font-bold text-white mb-2">No results for "{query}"</h2>
-                    <p className="text-neutral-400 max-w-sm mx-auto mb-8">We couldn't find what you're looking for. Try another search or request this novel from our team.</p>
+                    <i className="fas fa-search text-4xl sm:text-5xl text-neutral-600 mb-6"></i>
+                    <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">No results for "{query}"</h2>
+                    <p className="text-neutral-400 text-sm sm:text-base max-w-sm mx-auto mb-8">We couldn't find what you're looking for. Try another search or request this novel from our team.</p>
                     <button
                         onClick={handleRequestNovel}
-                        className="bg-primary text-black font-bold py-3 px-6 rounded-full hover:bg-green-400 transition-colors"
+                        className="bg-primary text-black font-bold py-2.5 sm:py-3 px-6 rounded-full hover:bg-green-400 transition-colors text-sm sm:text-base"
                     >
                         Request This Novel
                     </button>
@@ -259,7 +259,7 @@ const SearchPage: React.FC<SearchPageProps> = ({ novels, onNovelClick, currentUs
     return (
         <div className="space-y-8">
             <div>
-                <h1 className="text-3xl sm:text-4xl font-bold text-white">Search</h1>
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">Search</h1>
                 <form onSubmit={(e) => { e.preventDefault(); handleSearch(query); }} className="relative mt-2">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <i className="fas fa-search text-neutral-500"></i>
@@ -269,7 +269,7 @@ const SearchPage: React.FC<SearchPageProps> = ({ novels, onNovelClick, currentUs
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                         onBlur={() => handleSearch(query)}
-                        className="block w-full bg-neutral-800 border border-transparent rounded-lg py-3 pl-10 pr-3 text-white placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary sm:text-sm"
+                        className="block w-full bg-neutral-800 border border-transparent rounded-lg py-2 sm:py-3 pl-10 pr-3 text-white placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-sm sm:text-base"
                         placeholder="Series, creators, categories, and more"
                         aria-label="Search for series, creators, categories, and more"
                     />

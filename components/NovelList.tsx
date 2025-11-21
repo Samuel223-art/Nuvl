@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Novel } from '../data/novels';
 import NovelCard from './NovelCard';
@@ -11,9 +12,9 @@ interface NovelListProps {
 
 const NovelList: React.FC<NovelListProps> = ({ title, novels, onNovelClick, onViewAllClick }) => {
   const listContent = (
-    <div className="flex space-x-4 overflow-x-auto pb-4 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 no-scrollbar">
+    <div className="flex space-x-3 sm:space-x-4 overflow-x-auto pb-4 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 no-scrollbar">
       {novels.map((novel) => (
-        <div key={novel.id} className="flex-shrink-0 w-32">
+        <div key={novel.id} className="flex-shrink-0 w-28 sm:w-32">
           <NovelCard novel={novel} onClick={onNovelClick ? () => onNovelClick(novel) : undefined} />
         </div>
       ))}
@@ -26,13 +27,13 @@ const NovelList: React.FC<NovelListProps> = ({ title, novels, onNovelClick, onVi
   
   return (
     <section>
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-bold text-white">
+      <div className="flex justify-between items-center mb-3 sm:mb-4">
+        <h2 className="text-lg sm:text-xl font-bold text-white">
           {title}
         </h2>
         {onViewAllClick && (
           <button onClick={onViewAllClick} aria-label={`View all ${title}`}>
-            <i className="fas fa-chevron-right text-neutral-500"></i>
+            <i className="fas fa-chevron-right text-neutral-500 text-sm sm:text-base"></i>
           </button>
         )}
       </div>

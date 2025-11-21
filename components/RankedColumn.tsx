@@ -12,9 +12,9 @@ interface RankedColumnProps {
 
 const RankedColumn: React.FC<RankedColumnProps> = ({ title, novels }) => {
   return (
-    <div className="flex-shrink-0 w-72 space-y-1">
+    <div className="flex-shrink-0 w-64 sm:w-72 space-y-1">
       <button className="w-full flex justify-between items-center px-2 pb-2 group" aria-label={`View all in ${title}`}>
-        <h3 className="text-lg font-bold text-white group-hover:text-primary transition-colors">{title}</h3>
+        <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-primary transition-colors">{title}</h3>
         <i className="fas fa-chevron-right text-neutral-600 group-hover:text-primary transition-colors text-sm"></i>
       </button>
       <div>

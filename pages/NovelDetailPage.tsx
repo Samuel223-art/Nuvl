@@ -1,6 +1,4 @@
 
-
-
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Novel, Chapter, Comment } from '../data/novels';
 import { firebaseConfig } from '../firebaseConfig';
@@ -49,8 +47,8 @@ const ChapterListSkeleton = () => (
     <div className="space-y-4 py-3 animate-pulse">
         {[...Array(8)].map((_, i) => (
             <div key={i} className="flex items-baseline space-x-4">
-                <SkeletonLine className="h-5 w-8" />
-                <SkeletonLine className="h-5 flex-grow" />
+                <SkeletonLine className="h-4 sm:h-5 w-8" />
+                <SkeletonLine className="h-4 sm:h-5 flex-grow" />
             </div>
         ))}
     </div>
@@ -410,15 +408,15 @@ const NovelDetailPage: React.FC<NovelDetailPageProps> = ({
           }
           handleStartReading(chapter.id)
         }} 
-        className="flex items-center justify-between py-3 cursor-pointer group"
+        className="flex items-center justify-between py-2 sm:py-3 cursor-pointer group"
       >
         <div className="flex items-baseline space-x-4">
-          <span className="text-neutral-400 w-8 text-left font-sans text-base">{chapter.chapterNumber}</span>
-          <h3 className="text-white font-medium text-base group-hover:text-primary transition-colors">{chapter.title}</h3>
+          <span className="text-neutral-400 w-6 sm:w-8 text-left font-sans text-sm sm:text-base">{chapter.chapterNumber}</span>
+          <h3 className="text-white font-medium text-sm sm:text-base group-hover:text-primary transition-colors">{chapter.title}</h3>
           {isNew && <span className="ml-2 bg-primary text-black text-xs font-bold px-2 py-0.5 rounded-full">NEW</span>}
         </div>
         {isCurrent && (
-          <i className="fas fa-location-arrow text-primary"></i>
+          <i className="fas fa-location-arrow text-primary text-sm"></i>
         )}
       </div>
     );
@@ -443,15 +441,15 @@ const NovelDetailPage: React.FC<NovelDetailPageProps> = ({
             className={`fixed top-0 left-0 right-0 z-50 flex items-center px-4 py-2 border-b border-neutral-700 bg-black/80 backdrop-blur-sm transition-transform duration-300 ease-in-out ${isNavVisible ? 'translate-y-0' : '-translate-y-full'}`}>
             <div className="flex items-center space-x-4 overflow-hidden">
                 <button onClick={e => { e.stopPropagation(); handleExitReading(); }} className="p-2 -ml-2 text-neutral-300 hover:text-white" aria-label="Back to details">
-                    <i className="fas fa-arrow-left text-2xl"></i>
+                    <i className="fas fa-arrow-left text-xl sm:text-2xl"></i>
                 </button>
                 <div className="text-left overflow-hidden">
-                     <h2 className="text-base font-bold truncate">{currentChapter ? `Ch ${currentChapter.chapterNumber}. ${currentChapter.title}` : ''}</h2>
+                     <h2 className="text-sm sm:text-base font-bold truncate">{currentChapter ? `Ch ${currentChapter.chapterNumber}. ${currentChapter.title}` : ''}</h2>
                 </div>
             </div>
         </header>
 
-        <main className="px-4 sm:px-6 lg:px-8 pt-20 pb-24">
+        <main className="px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 pb-24">
           {currentChapter && currentChapter.content ? (
             <div
               className={`prose ${fontSizeClasses[readerSettings.fontSize]} ${themeConfig[readerSettings.theme].prose} max-w-none`}
@@ -466,8 +464,8 @@ const NovelDetailPage: React.FC<NovelDetailPageProps> = ({
               <div className="border-t border-neutral-800"></div>
               <div className="space-y-10 pt-8 pb-10 px-4 sm:px-6 lg:px-8">
                 <div>
-                    <p className="text-sm">Creator</p>
-                    <p className="font-bold text-base uppercase">{novel.author || 'Unknown Author'}</p>
+                    <p className="text-xs sm:text-sm">Creator</p>
+                    <p className="font-bold text-sm sm:text-base uppercase">{novel.author || 'Unknown Author'}</p>
                 </div>
                 
                 {nextChapter ? (
@@ -476,20 +474,20 @@ const NovelDetailPage: React.FC<NovelDetailPageProps> = ({
                       className="w-full flex items-center p-3 rounded-lg hover:bg-neutral-700 transition-colors text-left space-x-4"
                       style={{ backgroundColor: '#222222', border: '0.7px solid #404040' }}
                   >
-                      <img src={novel.coverUrl} alt={novel.title} className="w-16 h-16 object-cover rounded-md flex-shrink-0" />
+                      <img src={novel.coverUrl} alt={novel.title} className="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded-md flex-shrink-0" />
                       <div className="flex-grow overflow-hidden">
-                          <p className="font-semibold text-white">Next Chapter</p>
-                          <p className="text-sm text-neutral-400 truncate" title={`Chapter ${nextChapter.chapterNumber}: ${nextChapter.title}`}>
+                          <p className="font-semibold text-white text-sm sm:text-base">Next Chapter</p>
+                          <p className="text-xs sm:text-sm text-neutral-400 truncate" title={`Chapter ${nextChapter.chapterNumber}: ${nextChapter.title}`}>
                             Chapter {nextChapter.chapterNumber}: {nextChapter.title}
                           </p>
                       </div>
-                      <i className="fas fa-chevron-right text-neutral-500 text-xl"></i>
+                      <i className="fas fa-chevron-right text-neutral-500 text-lg sm:text-xl"></i>
                   </button>
                 ) : (
                   <div className="text-center py-8 border-y border-neutral-800">
-                    <i className="fas fa-feather-alt text-4xl text-neutral-500 mb-4"></i>
-                    <h3 className="text-xl font-bold">The End</h3>
-                    <p className="mt-2">You've reached the final chapter of "{novel.title}".</p>
+                    <i className="fas fa-feather-alt text-3xl sm:text-4xl text-neutral-500 mb-4"></i>
+                    <h3 className="text-lg sm:text-xl font-bold">The End</h3>
+                    <p className="mt-2 text-sm sm:text-base">You've reached the final chapter of "{novel.title}".</p>
                   </div>
                 )}
 
@@ -508,24 +506,24 @@ const NovelDetailPage: React.FC<NovelDetailPageProps> = ({
                 )}
                 
                 <div>
-                    <h2 className="text-xl font-bold mb-4">
+                    <h2 className="text-lg sm:text-xl font-bold mb-4">
                         If you enjoyed <span className="text-primary">{novel.title}</span>
                     </h2>
-                    <div className="flex space-x-4 overflow-x-auto pb-4 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 no-scrollbar">
+                    <div className="flex space-x-3 sm:space-x-4 overflow-x-auto pb-4 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 no-scrollbar">
                       {allNovels
                         .filter(n => n.id !== novel.id)
                         .slice(0, 5)
                         .map(recNovel => (
-                            <div key={recNovel.id} className="flex-shrink-0 w-32 group">
+                            <div key={recNovel.id} className="flex-shrink-0 w-28 sm:w-32 group">
                                 <img 
                                     src={recNovel.coverUrl} 
                                     alt={recNovel.title}
-                                    className="w-full h-44 object-cover rounded-lg"
+                                    className="w-full h-36 sm:h-44 object-cover rounded-lg"
                                 />
                                 <div className="mt-2">
-                                    <p className="text-xs truncate">{recNovel.genre || 'Misc'}</p>
-                                    <h3 className="text-sm font-bold truncate">{recNovel.title}</h3>
-                                    <p className="text-xs truncate">{recNovel.author || 'Unknown'}</p>
+                                    <p className="text-[10px] sm:text-xs truncate">{recNovel.genre || 'Misc'}</p>
+                                    <h3 className="text-xs sm:text-sm font-bold truncate">{recNovel.title}</h3>
+                                    <p className="text-[10px] sm:text-xs truncate">{recNovel.author || 'Unknown'}</p>
                                 </div>
                             </div>
                         ))
@@ -577,20 +575,20 @@ const NovelDetailPage: React.FC<NovelDetailPageProps> = ({
             onClick={e => e.stopPropagation()}
             className={`fixed bottom-0 left-0 right-0 z-50 flex items-center justify-around py-1 border-t border-neutral-700 bg-black/80 backdrop-blur-sm transition-transform duration-300 ease-in-out ${isNavVisible ? 'translate-y-0' : 'translate-y-full'}`}>
             <button onClick={e => { e.stopPropagation(); goToPreviousChapter(); }} disabled={currentChapterIndex === 0} className="flex flex-col items-center text-neutral-400 hover:text-primary p-1 transition-colors disabled:text-neutral-600 disabled:cursor-not-allowed" aria-label="Previous Chapter">
-                <i className="fas fa-chevron-left text-xl"></i>
-                <span className="text-xs mt-1">Prev</span>
+                <i className="fas fa-chevron-left text-lg sm:text-xl"></i>
+                <span className="text-[10px] sm:text-xs mt-1">Prev</span>
             </button>
             <button onClick={e => { e.stopPropagation(); setIsContentsPageOpen(true); }} className="flex flex-col items-center text-neutral-400 hover:text-primary p-1 transition-colors" aria-label="Open chapter list">
-                <i className="fas fa-list-ul text-xl"></i>
-                <span className="text-xs mt-1">Chapters</span>
+                <i className="fas fa-list-ul text-lg sm:text-xl"></i>
+                <span className="text-[10px] sm:text-xs mt-1">Chapters</span>
             </button>
              <button onClick={e => { e.stopPropagation(); setIsSettingsOpen(o => !o); }} className="flex flex-col items-center text-neutral-400 hover:text-primary p-1 transition-colors" aria-label="Display settings">
-                <i className="fas fa-cog text-xl"></i>
-                <span className="text-xs mt-1">Settings</span>
+                <i className="fas fa-cog text-lg sm:text-xl"></i>
+                <span className="text-[10px] sm:text-xs mt-1">Settings</span>
             </button>
             <button onClick={e => { e.stopPropagation(); goToNextChapter(); }} disabled={currentChapterIndex >= publishedChapters.length - 1} className="flex flex-col items-center text-neutral-400 hover:text-primary p-1 transition-colors disabled:text-neutral-600 disabled:cursor-not-allowed" aria-label="Next Chapter">
-                <i className="fas fa-chevron-right text-xl"></i>
-                <span className="text-xs mt-1">Next</span>
+                <i className="fas fa-chevron-right text-lg sm:text-xl"></i>
+                <span className="text-[10px] sm:text-xs mt-1">Next</span>
             </button>
         </footer>
         
@@ -605,7 +603,7 @@ const NovelDetailPage: React.FC<NovelDetailPageProps> = ({
             <div className="fixed top-0 left-0 h-full w-[85%] max-w-sm bg-black text-white shadow-2xl flex flex-col">
                 <header className="p-4 flex-shrink-0">
                     <div className="inline-block">
-                        <h1 className="text-2xl font-bold">Contents</h1>
+                        <h1 className="text-xl sm:text-2xl font-bold">Contents</h1>
                         <div className="mt-2 h-px w-full bg-neutral-500"></div>
                     </div>
                 </header>
@@ -618,17 +616,17 @@ const NovelDetailPage: React.FC<NovelDetailPageProps> = ({
                                 className={`w-full text-left p-4 flex items-center justify-between transition-colors ${chapter.id === currentChapter?.id ? '' : 'hover:bg-neutral-800'}`}
                             >
                                 <div className="flex items-center space-x-4 overflow-hidden">
-                                    <span className={`w-8 text-lg font-normal flex-shrink-0 ${chapter.id === currentChapter?.id ? 'text-indigo-400' : 'text-neutral-400'}`}>
+                                    <span className={`w-8 text-base sm:text-lg font-normal flex-shrink-0 ${chapter.id === currentChapter?.id ? 'text-indigo-400' : 'text-neutral-400'}`}>
                                         {chapter.chapterNumber}
                                     </span>
                                     <div className="flex-1">
-                                        <h3 className={`font-medium truncate ${chapter.id === currentChapter?.id ? 'text-indigo-400' : 'text-neutral-200'}`} title={chapter.title}>
+                                        <h3 className={`font-medium text-sm sm:text-base truncate ${chapter.id === currentChapter?.id ? 'text-indigo-400' : 'text-neutral-200'}`} title={chapter.title}>
                                             {chapter.title}
                                         </h3>
                                     </div>
                                 </div>
                                 {chapter.id === currentChapter?.id && (
-                                    <i className="fas fa-location-arrow text-primary ml-4"></i>
+                                    <i className="fas fa-location-arrow text-primary ml-4 text-sm"></i>
                                 )}
                             </button>
                         ))}
@@ -654,7 +652,7 @@ const NovelDetailPage: React.FC<NovelDetailPageProps> = ({
 
   return (
     <div style={{ backgroundColor: '#171717' }} className="min-h-screen text-white pb-10">
-      <div className="relative h-60 sm:h-72">
+      <div className="relative h-48 sm:h-60 md:h-72">
         <img src={bannerImageUrl} alt={`${novel.title} banner`} className="absolute top-0 left-0 w-full h-full object-cover opacity-30" />
         <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
         <header className="absolute top-0 left-0 right-0 p-4 z-20 flex justify-between items-center">
@@ -668,7 +666,7 @@ const NovelDetailPage: React.FC<NovelDetailPageProps> = ({
               aria-label={isInLibrary ? 'Remove from Library' : 'Add to Library'}
             >
               <i className={`fas ${isInLibrary ? 'fa-check' : 'fa-plus'}`}></i>
-              <span className="font-semibold text-sm">{isInLibrary ? 'In Library' : 'Library'}</span>
+              <span className="font-semibold text-xs sm:text-sm">{isInLibrary ? 'In Library' : 'Library'}</span>
             </button>
             <button onClick={() => setIsActionMenuOpen(true)} className="text-white h-10 w-10 rounded-full bg-black/30 flex items-center justify-center backdrop-blur-sm hover:bg-black/50 transition-colors" aria-label="More options">
               <i className="fas fa-ellipsis-v"></i>
@@ -677,21 +675,21 @@ const NovelDetailPage: React.FC<NovelDetailPageProps> = ({
         </header>
       </div>
 
-      <div className="px-4 -mt-24 relative z-10">
+      <div className="px-4 -mt-16 sm:-mt-20 md:-mt-24 relative z-10">
         <div className="flex items-end space-x-4">
-          <img src={novel.coverUrl} alt={`Cover of ${novel.title}`} className="w-28 h-40 object-cover rounded-lg shadow-lg border-2 border-neutral-800" />
+          <img src={novel.coverUrl} alt={`Cover of ${novel.title}`} className="w-24 h-36 sm:w-28 sm:h-40 object-cover rounded-lg shadow-lg border-2 border-neutral-800" />
           <div className="flex-1 pb-2">
-            <h1 className="text-xl font-bold text-white leading-tight">{novel.title}</h1>
-            <p className="text-primary text-sm font-semibold mt-1">{novel.author || 'Unknown Author'}</p>
+            <h1 className="text-lg sm:text-xl font-bold text-white leading-tight">{novel.title}</h1>
+            <p className="text-primary text-xs sm:text-sm font-semibold mt-1">{novel.author || 'Unknown Author'}</p>
           </div>
         </div>
         
-        <div className="mt-4 flex justify-around bg-neutral-800/50 rounded-lg p-3 text-center">
-          <div><p className="font-bold text-base">{novel.status}</p><p className="text-xs text-neutral-400">Status</p></div>
+        <div className="mt-4 flex justify-around bg-neutral-800/50 rounded-lg p-2 sm:p-3 text-center">
+          <div><p className="font-bold text-sm sm:text-base">{novel.status}</p><p className="text-[10px] sm:text-xs text-neutral-400">Status</p></div>
           <div className="border-l border-neutral-700"></div>
-          <div><p className="font-bold text-base capitalize">{novel.genre || 'N/A'}</p><p className="text-xs text-neutral-400">Genre</p></div>
+          <div><p className="font-bold text-sm sm:text-base capitalize">{novel.genre || 'N/A'}</p><p className="text-[10px] sm:text-xs text-neutral-400">Genre</p></div>
           <div className="border-l border-neutral-700"></div>
-          <div><p className="font-bold text-base">{formatViews(viewCount)}</p><p className="text-xs text-neutral-400">Views</p></div>
+          <div><p className="font-bold text-sm sm:text-base">{formatViews(viewCount)}</p><p className="text-[10px] sm:text-xs text-neutral-400">Views</p></div>
         </div>
 
         <div className="mt-6">
@@ -706,7 +704,7 @@ const NovelDetailPage: React.FC<NovelDetailPageProps> = ({
           {isTruncatable && (
             <button
               onClick={() => setIsSynopsisExpanded(!isSynopsisExpanded)}
-              className="text-primary font-semibold mt-2 text-sm hover:text-green-400"
+              className="text-primary font-semibold mt-2 text-xs sm:text-sm hover:text-green-400"
             >
               {isSynopsisExpanded ? 'Show Less' : 'Show More'}
             </button>
@@ -714,9 +712,9 @@ const NovelDetailPage: React.FC<NovelDetailPageProps> = ({
         </div>
 
         {novel.tag && (
-          <div className="mt-6 flex flex-wrap gap-3" aria-label="Tags">
+          <div className="mt-6 flex flex-wrap gap-2 sm:gap-3" aria-label="Tags">
             {novel.tag.split(',').map(tag => tag.trim()).filter(tag => tag).map(tag => (
-              <span key={tag} className="bg-neutral-800 text-white px-4 py-2 rounded-full text-sm font-bold uppercase">
+              <span key={tag} className="bg-neutral-800 text-white px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-bold uppercase">
                 # {tag}
               </span>
             ))}
@@ -726,15 +724,15 @@ const NovelDetailPage: React.FC<NovelDetailPageProps> = ({
         <div className="mt-6 flex items-center space-x-4">
             <button 
                 onClick={handleLikeClick}
-                className={`flex items-center justify-center w-12 h-12 rounded-full transition-colors duration-300 ${isLiked ? 'bg-primary/20 text-primary' : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'}`}
+                className={`flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full transition-colors duration-300 ${isLiked ? 'bg-primary/20 text-primary' : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'}`}
                 aria-label={isLiked ? 'Unlike this novel' : 'Like this novel'}
             >
-                <i className={`fas fa-heart text-2xl`}></i>
+                <i className={`fas fa-heart text-xl sm:text-2xl`}></i>
             </button>
             {showLikeCounts && (
                 <div className="text-left">
-                    <p className="font-bold text-lg text-white">{likeCount.toLocaleString()}</p>
-                    <p className="text-xs text-neutral-400">Likes</p>
+                    <p className="font-bold text-base sm:text-lg text-white">{likeCount.toLocaleString()}</p>
+                    <p className="text-[10px] sm:text-xs text-neutral-400">Likes</p>
                 </div>
             )}
         </div>
@@ -744,13 +742,13 @@ const NovelDetailPage: React.FC<NovelDetailPageProps> = ({
                 <nav className="-mb-px flex space-x-6" aria-label="Tabs">
                     <button
                         onClick={() => setActiveTab('Preview')}
-                        className={`whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm transition-colors duration-200 focus:outline-none ${ activeTab === 'Preview' ? 'border-primary text-primary' : 'border-transparent text-neutral-400 hover:text-white'}`}
+                        className={`whitespace-nowrap py-2 sm:py-3 px-1 border-b-2 font-medium text-sm transition-colors duration-200 focus:outline-none ${ activeTab === 'Preview' ? 'border-primary text-primary' : 'border-transparent text-neutral-400 hover:text-white'}`}
                     >
                         Preview
                     </button>
                     <button
                         onClick={() => setActiveTab('Chapters')}
-                        className={`whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm transition-colors duration-200 focus:outline-none ${ activeTab === 'Chapters' ? 'border-primary text-primary' : 'border-transparent text-neutral-400 hover:text-white'}`}
+                        className={`whitespace-nowrap py-2 sm:py-3 px-1 border-b-2 font-medium text-sm transition-colors duration-200 focus:outline-none ${ activeTab === 'Chapters' ? 'border-primary text-primary' : 'border-transparent text-neutral-400 hover:text-white'}`}
                     >
                         Chapters
                     </button>
@@ -770,7 +768,7 @@ const NovelDetailPage: React.FC<NovelDetailPageProps> = ({
                 </div>
             ) : (
             <div>
-              <h2 className="text-xl font-bold mb-4">{currentChapter?.title || 'Preview'}</h2>
+              <h2 className="text-lg sm:text-xl font-bold mb-4">{currentChapter?.title || 'Preview'}</h2>
               {currentChapter && currentChapter.content ? (
                 <>
                   <div
@@ -787,7 +785,7 @@ const NovelDetailPage: React.FC<NovelDetailPageProps> = ({
                             }
                            handleStartReading(publishedChapters[1].id)
                         }}
-                        className="bg-transparent border-2 border-primary text-primary font-bold py-3 px-8 rounded-full flex items-center space-x-3 hover:bg-primary/10 transition-colors duration-300"
+                        className="bg-transparent border-2 border-primary text-primary font-bold py-2 sm:py-3 px-6 sm:px-8 rounded-full flex items-center space-x-3 hover:bg-primary/10 transition-colors duration-300 text-sm sm:text-base"
                         aria-label="Continue reading from chapter 2"
                       >
                         <span>Continue Reading</span>
@@ -797,7 +795,7 @@ const NovelDetailPage: React.FC<NovelDetailPageProps> = ({
                   )}
                 </>
               ) : (
-                <p className="text-neutral-400 text-center py-8">
+                <p className="text-neutral-400 text-center py-8 text-sm">
                   {publishedChapters.length > 0 ? 'Preview for this chapter is not available.' : 'No preview available.'}
                 </p>
               )}
@@ -808,18 +806,18 @@ const NovelDetailPage: React.FC<NovelDetailPageProps> = ({
               <ChapterListSkeleton />
             ) : chaptersError ? (
               <div className="text-center py-8 text-red-400 bg-red-500/10 rounded-lg p-4">
-                  <i className="fas fa-exclamation-triangle text-2xl mb-2"></i>
-                  <p className="font-semibold">Failed to load chapters</p>
-                  <p className="text-sm text-neutral-400 mt-1">{chaptersError}</p>
+                  <i className="fas fa-exclamation-triangle text-xl sm:text-2xl mb-2"></i>
+                  <p className="font-semibold text-sm sm:text-base">Failed to load chapters</p>
+                  <p className="text-xs sm:text-sm text-neutral-400 mt-1">{chaptersError}</p>
               </div>
             ) : (
               <div>
                 {publishedChapters.length > 0 && (
-                    <div className="flex justify-between items-center py-3 border-b border-neutral-800 mb-2">
-                        <span className="text-neutral-300 font-bold text-base">
+                    <div className="flex justify-between items-center py-2 sm:py-3 border-b border-neutral-800 mb-2">
+                        <span className="text-neutral-300 font-bold text-sm sm:text-base">
                             {publishedChapters.length} episodes
                         </span>
-                        <button onClick={() => setSortOrder(so => so === 'desc' ? 'asc' : 'desc')} className="text-neutral-300 hover:text-white text-sm flex items-center gap-2">
+                        <button onClick={() => setSortOrder(so => so === 'desc' ? 'asc' : 'desc')} className="text-neutral-300 hover:text-white text-xs sm:text-sm flex items-center gap-2">
                             <span>{sortOrder === 'desc' ? 'Descending' : 'Ascending'}</span>
                             <i className="fas fa-sort text-neutral-500"></i>
                         </button>
@@ -837,9 +835,9 @@ const NovelDetailPage: React.FC<NovelDetailPageProps> = ({
                     } else {
                         return (
                             <div className="text-center py-12 px-6 bg-neutral-800/50 rounded-lg">
-                                <i className="fas fa-book-open text-5xl text-neutral-600 mb-6"></i>
-                                <h2 className="text-2xl font-bold text-white mb-2">No Chapters Yet</h2>
-                                <p className="text-neutral-400 max-w-sm mx-auto">This story is just getting started. Check back soon for new episodes!</p>
+                                <i className="fas fa-book-open text-4xl sm:text-5xl text-neutral-600 mb-6"></i>
+                                <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">No Chapters Yet</h2>
+                                <p className="text-neutral-400 text-sm sm:text-base max-w-sm mx-auto">This story is just getting started. Check back soon for new episodes!</p>
                             </div>
                         );
                     }

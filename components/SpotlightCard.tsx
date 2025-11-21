@@ -16,7 +16,7 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({ novel, onClick }) => {
   }, [novel.description]);
   
   return (
-    <div onClick={onClick} className="flex-shrink-0 w-80 h-40 bg-neutral-800 rounded-lg shadow-lg overflow-hidden transform transition-transform duration-300 hover:scale-105 cursor-pointer group flex">
+    <div onClick={onClick} className="flex-shrink-0 w-72 sm:w-80 h-36 sm:h-40 bg-neutral-800 rounded-lg shadow-lg overflow-hidden transform transition-transform duration-300 hover:scale-105 cursor-pointer group flex">
       <div className="w-1/3 h-full">
         <img
           src={novel.coverUrl}
@@ -24,15 +24,15 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({ novel, onClick }) => {
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="w-2/3 p-4 flex flex-col justify-center">
-        <h3 className="text-white text-md font-bold truncate leading-tight" title={novel.title}>
+      <div className="w-2/3 p-3 sm:p-4 flex flex-col justify-center">
+        <h3 className="text-white text-sm sm:text-md font-bold truncate leading-tight" title={novel.title}>
           {novel.title}
         </h3>
         {novel.subtitle && (
             <p className="text-primary text-xs font-semibold mt-1 truncate">{novel.subtitle}</p>
         )}
         {novel.description && (
-          <p className="text-neutral-400 text-xs mt-2 overflow-hidden" style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }}>
+          <p className="text-neutral-400 text-[10px] sm:text-xs mt-2 overflow-hidden" style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }}>
             {plainDescription}
           </p>
         )}

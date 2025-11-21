@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 const HomeIcon = ({ className }: { className?: string }) => (
@@ -45,8 +46,8 @@ const NavItem: React.FC<NavItemProps> = ({ Icon, label, isActive, onClick }) => 
       isActive ? 'text-primary' : 'text-neutral-400 hover:text-white'
     }`}
   >
-    <Icon className="w-6 h-6" />
-    <span className="text-xs mt-1 font-medium">{label}</span>
+    <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
+    <span className="text-[10px] sm:text-xs mt-1 font-medium">{label}</span>
   </button>
 );
 
@@ -66,7 +67,7 @@ const BottomNavBar: React.FC<BottomNavBarProps> = ({ activePage, onPageChange })
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-black border-t border-neutral-800 z-50">
-      <div className="max-w-7xl mx-auto flex justify-around h-16">
+      <div className="max-w-7xl mx-auto flex justify-around h-14 sm:h-16">
         {navItems.map((item) => (
           <NavItem
             key={item.id}

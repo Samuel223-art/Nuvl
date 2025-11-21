@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Novel } from '../data/novels';
 
@@ -13,7 +14,7 @@ const NovelCard: React.FC<NovelCardProps> = ({ novel, onClick }) => {
         <img
           src={novel.coverUrl}
           alt={`Cover of ${novel.title}`}
-          className="w-full h-48 object-cover rounded-lg shadow-lg group-hover:shadow-2xl group-hover:shadow-primary/30 transition-all duration-300"
+          className="w-full h-40 sm:h-48 object-cover rounded-lg shadow-lg group-hover:shadow-2xl group-hover:shadow-primary/30 transition-all duration-300"
         />
         <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-colors duration-300 rounded-lg"></div>
         {novel.progress !== undefined && (
@@ -22,12 +23,12 @@ const NovelCard: React.FC<NovelCardProps> = ({ novel, onClick }) => {
           </div>
         )}
       </div>
-      <div className="mt-3">
-        <h3 className="text-white text-sm font-bold truncate" title={novel.title}>
+      <div className="mt-2 sm:mt-3">
+        <h3 className="text-white text-xs sm:text-sm font-bold truncate" title={novel.title}>
           {novel.title}
         </h3>
         {novel.author && (
-          <p className="text-neutral-400 text-xs truncate" title={novel.author}>
+          <p className="text-neutral-400 text-[10px] sm:text-xs truncate" title={novel.author}>
             {novel.author}
           </p>
         )}

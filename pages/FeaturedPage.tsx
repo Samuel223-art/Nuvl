@@ -1,5 +1,4 @@
 
-
 import React from 'react';
 import { Novel } from '../data/novels';
 import NovelList from '../components/NovelList';
@@ -48,8 +47,8 @@ const FeaturedPage: React.FC<FeaturedPageProps> = ({ novels, onNovelClick }) => 
 
 
   return (
-    <div className="space-y-12">
-      <h1 className="text-3xl sm:text-4xl font-bold text-white pt-2">Featured</h1>
+    <div className="space-y-8 sm:space-y-12">
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white pt-2">Featured</h1>
 
       <NovelList title="Editor's Pick" novels={editorsPicks} onNovelClick={onNovelClick} />
       
